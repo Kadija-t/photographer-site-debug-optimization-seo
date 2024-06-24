@@ -243,7 +243,15 @@ input[type="submit"] {
 	background-color: #BEB45A;
 	padding: .5em 1em
 }
+.info-contact {
+	font-weight: bolder;
+	color: rgb(20, 19, 73);
+}
 
+.info-contact ul {
+	list-style-type: none;
+
+}
 @media all and (max-width: 1180px) {
 	.picture {
 		flex : 2;
