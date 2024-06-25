@@ -101,10 +101,18 @@ body {
 	justify-content: center;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-	color: #fff;
-	background-color: #BEB45A;
+	color: white;
+	background-color: #807732;
 	border-radius:0 ;
 }
+/*****************************test filtre************************/
+
+.bg-gold {
+	background-color: gold;
+  }
+  
+/****************************************************************/
+
 .nav-pills .nav-link {
 	color: #000
 }
@@ -243,14 +251,12 @@ input[type="submit"] {
 	background-color: #BEB45A;
 	padding: .5em 1em
 }
-.info-contact {
-	font-weight: bolder;
-	color: rgb(20, 19, 73);
-}
-
-.info-contact ul {
-	list-style-type: none;
-
+footer {
+	background-color: rgb(216, 211, 168);
+	color: black;
+	font-weight: bold;
+	padding-left: 20px;
+	padding-bottom: 10px ;
 }
 @media all and (max-width: 1180px) {
 	.picture {
