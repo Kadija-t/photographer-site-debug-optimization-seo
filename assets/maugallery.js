@@ -196,11 +196,10 @@
     },
 
     filterByTag() {
-      if ($(this).hasClass("active-tag")) {
-        return;
-      }
-      $(".active-tag").removeClass("active active-tag bg-gold");
-      $(this).addClass("active-tag bg-gold");
+      /*fixing changing color buttons*/
+      
+      $(".tags-bar .nav-link").removeClass("active");
+      $(this).addClass("active");
 
       var tag = $(this).data("images-toggle");
 
