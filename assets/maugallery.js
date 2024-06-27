@@ -116,16 +116,14 @@
         element.addClass("img-fluid");
       }
     },
-
     openLightBox(element, lightboxId) {
-      let altText = element.attr("alt"); 
       $(`#${lightboxId}`)
         .find(".lightboxImage")
         .attr("src", element.attr("src"))
-        .attr("alt", altText);
+        .attr("alt", element.attr("alt"));
       $(`#${lightboxId}`).modal("show");
     },
-
+    
     prevImage(lightboxId) {
       let activeImage = $(".lightboxImage").attr("src");
       let imagesCollection = [];
@@ -136,13 +134,13 @@
       });
       let currentIndex = imagesCollection.findIndex(img => img.attr("src") === activeImage);
       let prevIndex = (currentIndex - 1 + imagesCollection.length) % imagesCollection.length;
-      //getting previews img alt 
       let altText = imagesCollection[prevIndex].attr("alt");
       $(".lightboxImage").attr("src", imagesCollection[prevIndex].attr("src"));
-      $(".lightboxImage").attr("alt", altText)
+      $(".lightboxImage").attr("alt", altText);
+      $(`#${lightboxId}`).find(".altText").text(altText);
       $(`#${lightboxId}`).modal("show");
     },
-
+    
     nextImage(lightboxId) {
       let activeImage = $(".lightboxImage").attr("src");
       let imagesCollection = [];
@@ -153,38 +151,133 @@
       });
       let currentIndex = imagesCollection.findIndex(img => img.attr("src") === activeImage);
       let nextIndex = (currentIndex + 1) % imagesCollection.length;
-      //getting next img alt
       let altText = imagesCollection[nextIndex].attr("alt");
       $(".lightboxImage").attr("src", imagesCollection[nextIndex].attr("src"));
       $(".lightboxImage").attr("alt", altText);
+      $(`#${lightboxId}`).find(".altText").text(altText);
       $(`#${lightboxId}`).modal("show");
     },
-
-    createLightBox(gallery, lightboxId, navigation) {
+    
+    createLightBox(gallery, lightboxId, navigation, altText) {
       if ($(`#${lightboxId}`).length === 0) {
-        gallery.append(`<div class="modal fade" id="${
-          lightboxId ? lightboxId : "galleryLightbox"
-        }" tabindex="-1" role="dialog" aria-hidden="true">
+        gallery.append(`<div class="modal fade" id="${lightboxId ? lightboxId : "galleryLightbox"}" tabindex="-1" role="dialog" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                       <div class="modal-content">
                           <div class="modal-body">
                               ${
                                 navigation
-                                  ? '<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>'
-                                  : '<span style="display:none;" />'
+                                  ? `<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>`
+                                  : `<span style="display:none;" />`
                               }
-                              <img class="lightboxImage img-fluid" alt="Contenu de l\'image affichée dans la modale au clique"/>
+                              <img class="lightboxImage img-fluid" alt="${altText ? altText : "Contenu de l'image affichée dans la modale au clique"}"/>
                               ${
                                 navigation
-                                  ? '<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;}">></div>'
-                                  : '<span style="display:none;" />'
+                                  ? `<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;">></div>`
+                                  : `<span style="display:none;" />`
                               }
+                              <span class="altText" style="display:none;">${altText ? altText : ""}</span>
                           </div>
                       </div>
                   </div>
               </div>`);
       }
     },
+    
+    // openLightBox(element, lightboxId) {
+    //   // let altText = element.attr("alt"); 
+    //   $(`#${lightboxId}`)
+    //     .find(".lightboxImage")
+    //     .attr("src", element.attr("src"))
+    //     // .attr("alt", altText);
+    //   $(`#${lightboxId}`).modal("show");
+    // },
+
+    // prevImage(lightboxId) {
+    //   let activeImage = $(".lightboxImage").attr("src");
+    //   let imagesCollection = [];
+    //   $(".gallery-item").each(function() {
+    //     if ($(this).is(":visible")) {
+    //       imagesCollection.push($(this));
+    //     }
+    //   });
+    //   let currentIndex = imagesCollection.findIndex(img => img.attr("src") === activeImage);
+    //   let prevIndex = (currentIndex - 1 + imagesCollection.length) % imagesCollection.length;
+    //   //getting previews img alt 
+    //   // let altText = imagesCollection[prevIndex].attr("alt");
+    //   $(".lightboxImage").attr("src", imagesCollection[prevIndex].attr("src"));
+    //   // $(".lightboxImage").attr("alt", altText)
+    //   $(`#${lightboxId}`).modal("show");
+    // },
+
+    // nextImage(lightboxId) {
+    //   let activeImage = $(".lightboxImage").attr("src");
+    //   let imagesCollection = [];
+    //   $(".gallery-item").each(function() {
+    //     if ($(this).is(":visible")) {
+    //       imagesCollection.push($(this));
+    //     }
+    //   });
+    //   let currentIndex = imagesCollection.findIndex(img => img.attr("src") === activeImage);
+    //   let nextIndex = (currentIndex + 1) % imagesCollection.length;
+    //   //getting next img alt
+    //   // let altText = imagesCollection[nextIndex].attr("alt");
+    //   $(".lightboxImage").attr("src", imagesCollection[nextIndex].attr("src"));
+    //   // $(".lightboxImage").attr("alt", altText);
+    //   $(`#${lightboxId}`).modal("show");
+    // },
+
+    // createLightBox(gallery, lightboxId, navigation, altText) {
+    //   if ($(`#${lightboxId}`).length === 0) {
+    //     gallery.append(`<div class="modal fade" id="${
+    //       lightboxId ? lightboxId : "galleryLightbox"
+    //     }" tabindex="-1" role="dialog" aria-hidden="true">
+    //               <div class="modal-dialog" role="document">
+    //                   <div class="modal-content">
+    //                       <div class="modal-body">
+    //                           ${
+    //                             navigation
+    //                               ? `<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>`
+    //                               : `<span style="display:none;" />`
+    //                           }
+    //                           <img class="lightboxImage img-fluid" alt="${altText ? altText : "Contenu de l'image affichée dans la modale au clique"}"/>
+    //                           ${
+    //                             navigation
+    //                               ? `<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;">></div>`
+    //                               : `<span style="display:none;" />`
+    //                           }
+    //                           <span class="altText" style="display:none;">${altText ? altText : ""}</span>
+    //                       </div>
+    //                   </div>
+    //               </div>
+    //           </div>`);
+    //   }
+    // },
+    
+    // createLightBox(gallery, lightboxId, navigation) {
+    //   if ($(`#${lightboxId}`).length === 0) {
+    //     gallery.append(`<div class="modal fade" id="${
+    //       lightboxId ? lightboxId : "galleryLightbox"
+    //     }" tabindex="-1" role="dialog" aria-hidden="true">
+    //               <div class="modal-dialog" role="document">
+    //                   <div class="modal-content">
+    //                       <div class="modal-body">
+    //                           ${
+    //                             navigation
+    //                               ? '<div class="mg-prev" style="cursor:pointer;position:absolute;top:50%;left:-15px;background:white;"><</div>'
+    //                               : '<span style="display:none;" />'
+    //                           }
+    //                           <img class="lightboxImage img-fluid" alt="Contenu de l\'image affichée dans la modale au clique"/>
+    //                           ${
+    //                             navigation
+    //                               ? '<div class="mg-next" style="cursor:pointer;position:absolute;top:50%;right:-15px;background:white;}">></div>'
+    //                               : '<span style="display:none;" />'
+    //                           }
+    //                       </div>
+    //                   </div>
+    //               </div>
+    //           </div>`);
+    //   }
+    // },
 
     showItemTags(gallery, position, tags) {
       var tagItems =
